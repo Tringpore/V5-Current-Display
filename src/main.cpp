@@ -30,13 +30,15 @@ void opcontrol() {
         if(motor_ten.get_current_draw() > highest_current) highest_current = motor_ten.get_current_draw();
 
         if(master.get_digital_new_press(DIGITAL_X)){
-            motor_ten.move_relative(5000, 600);
+            if(motor_ten.get_position() < 2500){
+                motor_ten.move_relative(5000, 600);
+            }
+
+            else if(motor_ten.get_position() > 2500){
+                motor_ten.move_relative(-5000, 600);
+            }
         }
 
-        else if(master.get_digital_new_press(DIGITAL_B)){
-            motor_ten.move_relative(-5000,600);
-        }
-        
         pros::delay(5);
     }
 	
